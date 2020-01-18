@@ -7,16 +7,13 @@ output:
     latex_engine: pdflatex
     template: svm-latex-ms.tex
     number_sections: true
-title: | 
-        | Mi proyecto
-        | Subtítulo
-        | Subtítulo
+title: Relación de los Centros de Refugios respecto a las viviendas construidas con techo de zinc, la vulnerabilidad ante los fenómenos atmósfericos. 
 author:
-- name: Tali tali tali
-  affiliation: Estudiante, Universidad Autónoma de Santo Domingo (UASD)
-abstract: "Mi resumen"
-keywords: "palabra clave 1, palabra clave 2"
-date: "`r format(Sys.time(), '%B %d, %Y')`"
+- name: ALEIRA DEL JESUS, GRACE SORIANO, WILNELLIA FABIAN
+  affiliation: Estudiantes, Universidad Autónoma de Santo Domingo (UASD)
+abstract: "Resumen. El análisis espacial o estadística espacial comprende las técnicas formales que estudian las entidades que utilizan sus propiedades topológicas, geométricas o geográficas. Goodhild, et al. (1992), citado por Gamir, et al. (1995) define el análisis espacial dentro del SIG como un conjunto de técnicas basadas en la localización de los objetos o hechos geográficos que analizan, requiriendo el acceso simultáneo al componente locacional y temático de la información.En nuestro proyecto buscamos identificar las construcciones con material de construcción de zinc a nivel del país y la relación existente con los centros de refugios, para que de esta manera pueda servir de base para la futura planificación del ordenamiento territorial y que se pueda constatar si estos refugios satisfacen la demanda, ante la presencia de un fenómeno natural, como es el caso de las tormentas tropicales o Huracanes."
+keywords: "Ordenamiento territorial, Fenómeno Natural"
+date: "`r format(Sys.time(), '%Enero %17, %2020')`"
 geometry: margin=1in
 fontfamily: mathpazo
 fontsize: 11pt
@@ -28,31 +25,288 @@ header-includes:
   \usepackage{pdflscape}
   \newcommand{\blandscape}{\begin{landscape}}
   \newcommand{\elandscape}{\end{landscape}}
+editor_options: 
+  chunk_output_type: console
 ---
+```{r, include=FALSE}
+library(sf)
+library(sp)
+library(tidyverse)
+library(spdep)
+library(lmtest)
+library(tmap)
+library(RColorBrewer)
+library(ggplot2)
+source('lisaclusters.R')
 
+```
 
 # Introducción
 
-Preguntas de investigación o tema abordado.
+Relación de los Centros de Refugios respecto a las viviendas construidas con techo de zinc, la vulnerabilidad ante los fenómenos atmósfericos.
+
+Las casas de madera y zinc suelen ser las más afectadas por el paso de un fenómeno atmosférico.
+
+Según estudios (Publicados en el periódico Diario Libre), el 55.7% de las casas en la República Dominicana se encuentra construída con techos de zinc y un 13.2 % de sus paredes externas hechas de madera. 
+
+Pese a la vulnerabilidad del país caribeño expuesto a las amenazas de los ciclones, el Estado no ha dado una respuesta adecuada al problema de la precariedad de la vivienda que afecta al 71 % de la población (Artículo periodístico).
+
+El 71 % de la población carece de vivienda digna, es decir, una vivienda construida con materiales adecuados, fuera de zona de riesgo, con acceso a agua, energía, servicio sanitario, etc.
+
+El objetivo perseguido con nuestro proyecto es identificar las construcciones con material de construcción en madera y zinc a nivel del país y la relación existente con los centros de refugios, para que de esta manera pueda servir de base para la futura planificación del ordenamiento territorial y que se pueda constatar si estos refugios satisfacen la demanda, ante la presencia de un fenómeno atmósferico, como es el caso de las tormentas tropicales o Huracanes. 
 
 # Metodología
 
-\ldots
+-Utilizamos la aplicación Rstudio para el desarrollo de nuestro proyecto.
+Clonamos desde el Github la carpeta de "mi proyecto", la cual contiene los datos correspondientes para realizar los análisis espaciales.
+Los datos fueron suministrados por el profesor, el cual los obtuvo a través de la Oficina Nacional de Estadísticas (ONE), la cual se encarga de recolectar, revisar, elaborar y publicar las estadísticas nacionales en relación a las actividades socioeconómicas a través de su portal. 
+
+Realizamos los análisis espaciales que se describen a continuación:   
+
+Autocorrelación:Describe el comportamiento de una única variable considerando un plano horizontal. Ej: Las zonas próximas entre sí (es decir, en el caso de una capa ráster, las celdas próximas entre sí), tienden a tener valores similares.
+
+La Modelización: Consiste en realizar una representación de la realidad por medio de herramientas de SIG y Teledetección, de cualquier evento que se presente en el territorio. Se utiliza comúnmente para determinar proyecciones a nivel poblacional, áreas potenciales de proyectos, áreas de riesgo que pueda presentar un sitio determinado, etc.
+
 
 # Resultados
 
-\ldots
+Luego del analisis I de Moran local se puede visualizar que los municipios como Los Alcarrizos, Santo Domingo Oeste, Bajos de Haina, San Gregorio de Nigua, San Rafael del Yuma, La Romana, constituyen observaciones que no se parecen a sus vecinos, ya que, los mismos obtuvieron como resultado un porcentaje menor al esperado y los municipios de Sabana Yegua y Santiago obtuvieron como resultado un porcentaje mayor al esperado, con relacion a la variable Depediente. Por ejemplo el municipio de San Cristóbal obtuvo un valor de 3.8 en el eje X y se esperaba un valor de 4.30 de viviendas con material de construcción de zinc. 
+
+El Mapa Lisa muestra los cluster de los municipios que se parecen entre si y que se encuentran autocorrelacionados con la variable seleccionada. 
+En el mapa obtenido podemos visualizar que los municipios que conforman las provincias de: Dajabón, Azua y algunos municipios de la provincia de Elías Piña, en este caso la variale,poseen un valor muy parecido con respecto a la variable Total de viviendas construidas con material de techo zinc. 
+
+# Modelización
+En la modelización es importante seleccionar adecuadamente las variables independientes, de manera que se produzcan resultado con sentido. La significancia estadísticas no es el objeto central, sino alcanzarla para un modelo que haga sentido.
+
+Las variables independientes de nuestro trabajo, fueron las siguientes:
+Centros de refugio de la defensa civil en este segmento: Escuela o Liceo: Si, Centros de refugio de la defensa civil en este segmento: Iglesia: Si, Centros de refugio de la defensa civil en este segmento:otros:Si Salón comunal: Si, Centros de refugio de la defensa civil en este segmento: Centro deportivo: Si,Centros de refugio de la defensa civil en este segmento: Otros: Si.
+
+En el modelo lineal obtenido las variables independientes significativas fueron las siguientes: Centros de refugio de la defensa civil en este segmento: Iglesia: Si y Centros de refugio de la defensa civil en este segmento:otros:Si.
 
 # Discusión o Conclusiones
 
-\ldots
+En vista de que el valor de p obtenido fue menor de 0.05, se puede comprobar que existe "autocorrelación espacial."
+Luego del análisis realizado, podemos concluir que los Centros de Refugios con respecto a las viviendas construidas con material techo de zinc, se encuentran en un porcentaje significativo en los municipios que se encuentran en las provincias Dajabón, Azua y algunos municipios de la provincia de Elías Piña, para que de esta manera pueda servir de base para la futura planificación del ordenamiento territorial y que se pueda constatar si estos refugios satisfacen la demanda, ante la presencia de un fenómeno natural, como es el caso de las tormentas tropicales o Huracanes.
 
-# Información de soporte
-
-\ldots
 
 # *Script* reproducible
 
-\ldots
+```{r, echo=TRUE}
+library(sf)
+library(sp)
+library(tidyverse)
+library(spdep)
+library(lmtest)
+library(tmap)
+library(RColorBrewer)
+library(ggplot2)
+source('lisaclusters.R')
 
+## Las variables con las que desarrollaremos este trabajo son: 
+## Viviendas con material de construcción de techo de zinc, como Variable Dependiente y
+## Centros de Refugio, como Variable Independiente. 
+
+#Cargamos nuestros datos, leyendo la extension siguiente:
+vivref <- readRDS('data/vivpersgeom_sf.RDS') %>% 
+  dplyr::select(matches(
+    'TOPONIMIA|Condición de ocupación|Material Construcción Techo: Zinc|Centros de refugio de la defensa civil en este segmento.*Si$')) %>% 
+  mutate(`Total de viviendas`=`Condición de ocupación: Ocupada con personas presentes` + `Condición de ocupación: Desocupada`) %>% 
+  mutate_each(funs(PCT=round(./`Total de viviendas`,4)*100), -TOPONIMIA, -geom, -`Total de viviendas`) %>% 
+  mutate("Material Construcción Techo: Zinc_PCT log"= log(`Material Construcción Techo: Zinc_PCT`))
+vivref
+vivref %>% plot(breaks = 'jenks')
+vivref %>% mutate(vtotal=
+                    `Centros de refugio de la defensa civil en este segmento: Otros: Si`+
+                    `Centros de refugio de la defensa civil en este segmento: Centro deportivo: Si`)
+vivref.sp <- as_Spatial(vivref)
+colnames(vivref.sp@data) <- vivref %>% st_drop_geometry() %>% colnames
+
+row.names(vivref.sp) <- as.character(vivref.sp$TOPONIMIA)
+
+#Utilizamos el criterio queen y de esta manera aplicamos la vecindad por contigüidad.
+vivref.nb  <- poly2nb(vivref.sp, queen=TRUE)
+summary(vivref.nb)
+card(vivref.nb)
+sapply(vivref.nb, function(x) x)
+
+#Realizamos un mapa de los vínculos de vecindad y confirmamos si el objeto de vencidad es simétrico.
+plot(vivref.sp, border="grey", lwd=0.5)
+plot(vivref.nb, coordinates(vivref.sp), add=T)
+is.symmetric.nb(vivref.nb)
+
+coords <- coordinates(vivref.sp)
+ident <- row.names(vivref.sp)
+vivref.nb.k1  <- knn2nb(knearneigh(coords, k = 1), row.names = ident)
+summary(vivref.nb.k1)
+
+card(vivref.nb.k1)
+sapply(vivref.nb.k1, function(x) x)
+
+plot(vivref.sp, border="grey", lwd=0.5)
+plot(vivref.nb.k1, coordinates(vivref.sp), add=T)
+
+is.symmetric.nb(vivref.nb.k1)
+
+dist<- unlist(nbdists(vivref.nb.k1, coords))
+summary(dist)
+hist(dist)
+boxplot(dist)
+
+(distmin <- min(dist)) 
+(distmax <- max(dist))
+indicemin <- which(dist==distmin)
+ident[indicemin]
+indicemax <- which(dist==distmax)
+ident[indicemax]
+
+ident[order(dist)]
+
+vivref.w.W  <- nb2listw(vivref.nb)
+vivref.w.W
+vivref.w.B <- nb2listw(vivref.nb, style = 'B')
+vivref.w.B 
+
+st_crs(vivref)
+crsdestino <- 32619
+vivrefutm <- vivref %>% st_transform(crs = crsdestino)
+
+#Variable en su versión original como transformada
+coordsxy <- vivref %>%
+  st_centroid() %>% 
+  mutate(x=unlist(map(geom,1)),
+         y=unlist(map(geom,2))) %>%
+  select(TOPONIMIA, x, y) %>% 
+  st_drop_geometry()
+vivrefconxy <- vivref %>%
+  inner_join(coordsxy, by = 'TOPONIMIA')
+vivrefconxy
+
+vivref1 <- tm_shape(vivref)+ 
+  tm_fill(col = 'Material Construcción Techo: Zinc_PCT', style = 'kmeans', palette = brewer.pal(9, name = 'Reds')) +
+  tm_borders(col = 'grey30', lwd = 0.5)
+vivref2 <- tm_shape(vivref) +
+  tm_fill(col = 'Material Construcción Techo: Zinc_PCT log', style = 'kmeans', palette = brewer.pal(9, name = 'Reds')) +
+  tm_borders(col = 'grey30', lwd = 0.5)
+tmap_arrange(vivref1, vivref2)
+
+vivref %>% st_drop_geometry() %>%
+  select(contains('PCT')) %>% 
+  gather(variable, valor) %>%
+  ggplot() + aes(sample=valor) +
+  stat_qq() + stat_qq_line() + theme_bw() +
+  theme(text = element_text(size = 14)) +
+  facet_wrap(~variable, scales = 'free')
+
+vivref %>% st_drop_geometry() %>%
+  gather(variable, valor, -(TOPONIMIA)) %>% group_by(variable) %>%
+  summarise(prueba_normalidad=shapiro.test(valor)$p.value)
+
+qqnorm(vivref$`Material Construcción Techo: Zinc_PCT`)
+shapiro.test(vivref$`Material Construcción Techo: Zinc_PCT`) 
+qqnorm(vivref$`Material Construcción Techo: Zinc_PCT log`) 
+shapiro.test(vivref$`Material Construcción Techo: Zinc_PCT log`) 
+
+vivrefconxy %>% lm(`Material Construcción Techo: Zinc_PCT`~x,.) %>% plot(3)
+vivrefconxy %>% lm(`Material Construcción Techo: Zinc_PCT`~y,.) %>% plot(3)
+vivrefconxy %>% lm(`Material Construcción Techo: Zinc_PCT log`~x,.) %>% plot(3)
+vivrefconxy %>% lm(`Material Construcción Techo: Zinc_PCT log`~y,.) %>% plot(3)
+
+match(attr(vivref.w.W$neighbours, "region.id"), vivref$TOPONIMIA)==1:155
+
+(gmoranw <- moran.test(x = vivref$`Material Construcción Techo: Zinc_PCT log`, listw = vivref.w.W))
+
+(gmoranb <- moran.test(x = vivref$`Material Construcción Techo: Zinc_PCT log`, listw = vivref.w.B))
+
+moran.plot(x = vivref$`Material Construcción Techo: Zinc_PCT log`, listw = vivref.w.W)
+
+source('lisaclusters.R')
+lisamap(objesp=vivref,
+        var = 'Material Construcción Techo: Zinc_PCT',
+        pesos = vivref.w.W,
+        tituloleyenda = 'Significancia\n("x-y", léase\ncomo "x"\nrodeado de "y"',
+        leyenda = T,
+        anchuratitulo = 1000,
+        tamanotitulo = 16,
+        fuentedatos ='CENSO 2010',
+        titulomapa = paste0('Clusters LISA, de la variable Total de viviendas'))
+
+# MODELIZACION
+
+varsel <- vivref %>% dplyr::select(
+  TOPONIMIA = TOPONIMIA,
+  TECHOZINC = `Material Construcción Techo: Zinc_PCT`,
+  CENTROEDU = `Centros de refugio de la defensa civil en este segmento: Escuela o Liceo: Si_PCT`,
+  CENTROREL = `Centros de refugio de la defensa civil en este segmento: Iglesia: Si_PCT`,
+  SALONCOMU = `Centros de refugio de la defensa civil en este segmento: Salón comunal: Si_PCT`,
+  DEPORTIVO = `Centros de refugio de la defensa civil en este segmento: Centro deportivo: Si_PCT`,
+  DEFENSACIV= `Centros de refugio de la defensa civil en este segmento: Otros: Si_PCT`,
+  TOTALVIV = `Total de viviendas`)
+varsel
+
+varselpctlog <- varsel %>% mutate_each(
+  funs(PCT=round(./TOTALVIV,4)*100,
+       PCTLOG=log1p(round(./TOTALVIV,4)*100)),
+  -1, -2, -geom, -TOTALVIV)
+varselpctlog
+
+(gmoranw <- moran.test(x = varselpctlog$CENTROEDU_PCT, listw = vivref.w.W))
+
+(gmoranb <- moran.test(x = varselpctlog$CENTROEDU_PCT, listw = vivref.w.B))
+
+(gmoranwl <- moran.test(x = varselpctlog$CENTROEDU_PCTLOG, listw = vivref.w.W))
+
+(gmoranbl <- moran.test(x = varselpctlog$CENTROEDU_PCTLOG, listw = vivref.w.B))
+
+shapiro.test(varselpctlog$CENTROEDU_PCT)
+
+shapiro.test(varselpctlog$CENTROEDU_PCTLOG)
+
+modlin <- varselpctlog %>% select(contains('_PCTLOG')) %>%
+  st_drop_geometry() %>% lm(CENTROEDU_PCTLOG ~ ., .)
+modlin %>% summary
+
+modlin %>% bptest
+
+
+# Ejecutemos el modelo espacial autorregresivo, en este caso, la variate Simultaneous Autorregresive Model.
+
+sar <- varselpctlog %>% select(contains('_PCTLOG')) %>%
+  st_drop_geometry() %>%
+  spautolm(
+    formula = CENTROEDU_PCTLOG ~ .,
+    data = .,
+    listw = vivref.w.W)
+summary(sar)
+
+sar2 <- varselpctlog %>% select(contains('_PCTLOG')) %>%
+  st_drop_geometry() %>%
+  spautolm(
+    formula = CENTROEDU_PCTLOG ~ CENTROREL_PCTLOG + DEFENSACIV_PCTLOG,
+    data = .,
+    listw = vivref.w.W)
+summary(sar2)
+
+```
 # Referencias
+
+Mas, J.-F. (2013). Análisis espacial con R. Usa R como un sistema de información geográfica. European Scientific Institue (ESI)
+
+Olaya, V. (2014). Sistemas de informacion geográfica. Retrieved from https://volaya.github.io/libro-sig/
+
+La vida bajo un techo de zinc, la otra cara del paraíso de República Dominicana. Artículo del periódco Diario Libre. 18/10/2017.Efe Reportajes. 
+
+Irma encuentra República Dominicana con miles de casas en barrancones y 55% techos de zinc.Artículo del periódco Diario Libre. Kirsis Díaz. REPÚBLICA DOMINICANA 07/09/2017. 
+
+Revista Colombiana de Geografía. Willington Siabato/Jhon Guzmán-Manrique. Autocorrelación espacial y el desarrollo de la geografía cuantitativa.27 de diciembre de 2018.
+
+
+Datos puntuales, geoestadística/Material de apoyo/Profesor José Ramón Martínez.
+
+http://www.scielo.org.co/pdf/rcdg/v28n1/2256-5442-rcdg-28-01-1.pdf
+
+https://sites.google.com/a/inbio.ac.cr/geomatica/modelacion-espacial
+
+http://www.bdigital.unal.edu.co/1239/3/02CAPI01.pdf
+
+https://es.wikipedia.org/wiki/An%C3%A1lisis_espacial
+
