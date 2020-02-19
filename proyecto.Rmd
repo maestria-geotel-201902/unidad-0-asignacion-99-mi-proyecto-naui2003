@@ -7,12 +7,13 @@ output:
     latex_engine: pdflatex
     template: svm-latex-ms.tex
     number_sections: true
-title: Relación de los Centros de Refugios respecto a las viviendas construidas con techo de zinc, la vulnerabilidad ante los fenómenos atmósfericos. 
+title: Relación de los Centros de Refugios respecto a las viviendas construidas con techo de zinc y la vulnerabilidad de las mismas ante los fenómenos atmósfericos. 
 author:
 - name: ALEIRA DEL JESUS, GRACE SORIANO, WILNELLIA FABIAN
-  affiliation: Estudiantes, Universidad Autónoma de Santo Domingo (UASD)
-abstract: "Resumen. El análisis espacial o estadística espacial comprende las técnicas formales que estudian las entidades que utilizan sus propiedades topológicas, geométricas o geográficas. Goodhild, et al. (1992), citado por Gamir, et al. (1995) define el análisis espacial dentro del SIG como un conjunto de técnicas basadas en la localización de los objetos o hechos geográficos que analizan, requiriendo el acceso simultáneo al componente locacional y temático de la información.En nuestro proyecto buscamos identificar las construcciones con material de construcción de zinc a nivel del país y la relación existente con los centros de refugios, para que de esta manera pueda servir de base para la futura planificación del ordenamiento territorial y que se pueda constatar si estos refugios satisfacen la demanda, ante la presencia de un fenómeno natural, como es el caso de las tormentas tropicales o Huracanes."
-keywords: "Ordenamiento territorial, Fenómeno Natural"
+  affiliation: Estudiantes de la Maestria en Teledetección y Ciencias de la Información Geográgica. Universidad Autónoma de Santo Domingo (UASD).
+  
+abstract: "Resumen. En nuestro proyecto buscamos identificar las construcciones techadas con material de zinc a nivel del país y la relación existente con los centros de refugios, para que de esta manera pueda servir de base para la futura planificación del ordenamiento territorial y que se pueda constatar si estos refugios satisfacen la demanda, ante la presencia de un fenómeno natural, como es el caso de las tormentas tropicales o huracanes."
+keywords: "Ordenamiento territorial, Fenómeno Natural, Refugios, Vulnerabilidad"
 date: "`r format(Sys.time(), '%Enero %17, %2020')`"
 geometry: margin=1in
 fontfamily: mathpazo
@@ -43,49 +44,47 @@ source('lisaclusters.R')
 
 # Introducción
 
-Relación de los Centros de Refugios respecto a las viviendas construidas con techo de zinc, la vulnerabilidad ante los fenómenos atmósfericos.
+El proyecto a desarrollar consiste en la relación de los Centros de Refugios respecto a las viviendas construídas con techo de zinc y la vulnerabilidad de las mismas ante los fenómenos atmósfericos. Realizamos la selección del tema, en virtud de que según estudios publicados en el periódico Diario Libre (realizado por Kirsis Díaz en fecha 07/09/2017) el 55.7% de las casas en la República Dominicana se encuentra construída con techos de zinc. Por ende, lo consideramos como una estadística alarmante en nuestro país.
 
-Las casas de madera y zinc suelen ser las más afectadas por el paso de un fenómeno atmosférico.
+Ante esta situación, el Estado Dominicano no cuenta con una planificación en donde se puedan identificar geográficamente en un SIG la ubicación de dichas viviendas, ni tampoco cuenta con los mecanismos necesarios para poder determinar si los Centros de Refugios son suficientes para satisfacer la demanda de la población que se encuentra vulnerable. Según la OXFAM (Oxford Committee for Famine Relief), en un artículo periodístico publicado en el Diario Libre de fecha 18/10/2017 el 71% de la población carece de una vivienda construída con materiales adecuados y se ubican en zona de riesgo.
 
-Según estudios (Publicados en el periódico Diario Libre), el 55.7% de las casas en la República Dominicana se encuentra construída con techos de zinc y un 13.2 % de sus paredes externas hechas de madera. 
-
-Pese a la vulnerabilidad del país caribeño expuesto a las amenazas de los ciclones, el Estado no ha dado una respuesta adecuada al problema de la precariedad de la vivienda que afecta al 71 % de la población (Artículo periodístico).
-
-El 71 % de la población carece de vivienda digna, es decir, una vivienda construida con materiales adecuados, fuera de zona de riesgo, con acceso a agua, energía, servicio sanitario, etc.
-
-El objetivo perseguido con nuestro proyecto es identificar las construcciones con material de construcción en madera y zinc a nivel del país y la relación existente con los centros de refugios, para que de esta manera pueda servir de base para la futura planificación del ordenamiento territorial y que se pueda constatar si estos refugios satisfacen la demanda, ante la presencia de un fenómeno atmósferico, como es el caso de las tormentas tropicales o Huracanes. 
 
 # Metodología
 
--Utilizamos la aplicación Rstudio para el desarrollo de nuestro proyecto.
-Clonamos desde el Github la carpeta de "mi proyecto", la cual contiene los datos correspondientes para realizar los análisis espaciales.
-Los datos fueron suministrados por el profesor, el cual los obtuvo a través de la Oficina Nacional de Estadísticas (ONE), la cual se encarga de recolectar, revisar, elaborar y publicar las estadísticas nacionales en relación a las actividades socioeconómicas a través de su portal. 
+Utilizamos el entorno de programación estadística R y el entorno de desarrollo integrado RStudio para el proyecto. Clonamos desde el Github la carpeta de "mi proyecto", la cual contiene los datos correspondientes para realizar los análisis espaciales.
 
-Realizamos los análisis espaciales que se describen a continuación:   
+Los datos fueron suministrados por el profesor, el cual los obtuvo a través de la Oficina Nacional de Estadísticas (ONE), la cual se encarga de recolectar, revisar, elaborar y publicar las estadísticas nacionales en relación a las actividades socioeconómicas a través de su portal. Luego realizamos los análisis espaciales que se describen a continuación:   
 
-Autocorrelación:Describe el comportamiento de una única variable considerando un plano horizontal. Ej: Las zonas próximas entre sí (es decir, en el caso de una capa ráster, las celdas próximas entre sí), tienden a tener valores similares.
+-La autocorrelación, describe el comportamiento de una variable única, considerando un plano horizontal.
+-La modelización: Consiste en realizar una representación de la realidad por medio de herramientas de SIG y Teledetección, de cualquier evento que se presente en el territorio. Se utiliza comúnmente para determinar proyecciones a nivel poblacional, áreas potenciales de proyectos, áreas de riesgo que pueda presentar un sitio determinado, etc.
 
-La Modelización: Consiste en realizar una representación de la realidad por medio de herramientas de SIG y Teledetección, de cualquier evento que se presente en el territorio. Se utiliza comúnmente para determinar proyecciones a nivel poblacional, áreas potenciales de proyectos, áreas de riesgo que pueda presentar un sitio determinado, etc.
+Creamos el objeto de vecindad por contigüidad, utilizando el criterio queen, para luego generar el mapa de vínculos de vencidad o grafo, realizamos los estadísticos básicos, para luego proceder a generar las pondraciones espaciales y realizar la autocorrelación espacial de la variable, utilizando el I de Moran global y local, para así obtener el LISA Mapa.
 
+Para la modelización, realizamos la exploración de la variable dependiente con las independientes, evaluamos si existe autocorrelación, normalidad y homocedasticidad.
 
 # Resultados
 
-Luego del analisis I de Moran local se puede visualizar que los municipios como Los Alcarrizos, Santo Domingo Oeste, Bajos de Haina, San Gregorio de Nigua, San Rafael del Yuma, La Romana, constituyen observaciones que no se parecen a sus vecinos, ya que, los mismos obtuvieron como resultado un porcentaje menor al esperado y los municipios de Sabana Yegua y Santiago obtuvieron como resultado un porcentaje mayor al esperado, con relacion a la variable Depediente. Por ejemplo el municipio de San Cristóbal obtuvo un valor de 3.8 en el eje X y se esperaba un valor de 4.30 de viviendas con material de construcción de zinc. 
 
-El Mapa Lisa muestra los cluster de los municipios que se parecen entre si y que se encuentran autocorrelacionados con la variable seleccionada. 
-En el mapa obtenido podemos visualizar que los municipios que conforman las provincias de: Dajabón, Azua y algunos municipios de la provincia de Elías Piña, en este caso la variale,poseen un valor muy parecido con respecto a la variable Total de viviendas construidas con material de techo zinc. 
+Luego del análisis I de Moran local se puede visualizar que los municipios tales como: Los Alcarrizos, Santo Domingo Oeste, Bajos de Haina, San Gregorio de Nigua, San Rafael del Yuma, La Romana, constituyen observaciones que no se parecen a sus vecinos, ya que, los mismos obtuvieron como resultado un porcentaje menor al esperado y los municipios de Sabana Yegua y Santiago obtuvieron como resultado un porcentaje mayor al esperado, con relación a la variable depediente. Por ejemplo el municipio de San Cristóbal obtuvo un valor de 3.8 en el eje X, y se esperaba un valor de 4.30 de viviendas con material de construcción de zinc. 
+
+El resultado arrojado por el Mapa Lisa, muestra la existencia de una autocorrelación local, donde el relleno de color rojo (hotspots) identifican las zonas con mayor concentración de viviendas contruídas con material de zinc y el color azul (coldspots) identifican los valores de menor concentración de las mismas, en ese orden, los clúster de color gris representa municipios que poseen datos no significativo.
+
+Otra de las conclusiones sobre los datos analizados, es que los municipios donde se visualizan mayor concentración, son zonas de un nivel socioeconómico bajo, como por ejemplo, los municipios que se encuentran ubicados en la zona de la frontera con Haití. 
+
 
 # Modelización
-En la modelización es importante seleccionar adecuadamente las variables independientes, de manera que se produzcan resultado con sentido. La significancia estadísticas no es el objeto central, sino alcanzarla para un modelo que haga sentido.
 
-Las variables independientes de nuestro trabajo, fueron las siguientes:
-Centros de refugio de la defensa civil en este segmento: Escuela o Liceo: Si, Centros de refugio de la defensa civil en este segmento: Iglesia: Si, Centros de refugio de la defensa civil en este segmento:otros:Si Salón comunal: Si, Centros de refugio de la defensa civil en este segmento: Centro deportivo: Si,Centros de refugio de la defensa civil en este segmento: Otros: Si.
+En vista de que el valor de p obtenido fue menor de 0.05, se puede comprobar que existe autocorrelación espacial, no se rechaza la hipótesis nula.
 
-En el modelo lineal obtenido las variables independientes significativas fueron las siguientes: Centros de refugio de la defensa civil en este segmento: Iglesia: Si y Centros de refugio de la defensa civil en este segmento:otros:Si.
+En el modelo lineal obtenido las variables independientes significativas fueron las siguientes:
+Centros de refugio de la defensa civil en este segmento: Iglesia: Si (CENTROREL_PCT) y Centros de refugio de la defensa civil en este segmento:Escuela o Liceo (CENTROEDU_PCT).
+
+Estas variables independientes significativas nos indican que se debe crear estrategias de planificación, en las cuales se establezca la organización previa, ante cualquier eventualidad, ya que se puede evidenciar que este tipo de estructuras iglesias y escuelas refleja el deficit existente en el país de edificaciones destinadas a refugios. 
+
 
 # Discusión o Conclusiones
 
-En vista de que el valor de p obtenido fue menor de 0.05, se puede comprobar que existe "autocorrelación espacial."
+
 Luego del análisis realizado, podemos concluir que los Centros de Refugios con respecto a las viviendas construidas con material techo de zinc, se encuentran en un porcentaje significativo en los municipios que se encuentran en las provincias Dajabón, Azua y algunos municipios de la provincia de Elías Piña, para que de esta manera pueda servir de base para la futura planificación del ordenamiento territorial y que se pueda constatar si estos refugios satisfacen la demanda, ante la presencia de un fenómeno natural, como es el caso de las tormentas tropicales o Huracanes.
 
 
